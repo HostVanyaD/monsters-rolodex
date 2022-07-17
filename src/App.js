@@ -23,7 +23,7 @@ class App extends Component {
       );
   }
 
-  onSearchChange = (e) => {
+  onSearchChangeHandler = (e) => {
     const searchField = e.target.value.toLocaleLowerCase();
     this.setState(() => {
       return { searchField };
@@ -32,15 +32,22 @@ class App extends Component {
 
   render() {
     const { monsters, searchField } = this.state;
-    const { onSearchChange } = this;
+    const { onSearchChangeHandler } = this;
 
     const filteredMonsters = monsters.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
     });
 
+    console.log({ filteredMonsters, searchField });
+
     return (
       <div className='App'>
-        <SearchBox onSearchChange={onSearchChange} />
+        <h1 className='app-title'>Monsters Rolodex</h1>
+        <SearchBox
+          className='monsters-search-box'
+          placeholder='search monsters'
+          onSearchChangeHandler={onSearchChangeHandler}
+        />
         <CardList monsters={filteredMonsters} />
       </div>
     );
